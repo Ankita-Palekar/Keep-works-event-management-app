@@ -11,7 +11,7 @@
               <% if e[:fees].present?%>
                 <span class="label label-primary pull-right"><%= number_to_human(e[:fees], precision: 2, strip_insignificant_zeros: true) %> </span> 
               <% end %>
-              <h3><a href="<%= e[:id] %>"><%= e[:name] %></a></h3>
+              <h3><a href="events/<%= e[:id] %>"><%= e[:name] %></a></h3>
               <p> <%= e[:description] %> </p>
               <div>
                 <span class="label label-info"><%= format_date(e[:created_at], "%d %h %Y %H:%m") %></span>

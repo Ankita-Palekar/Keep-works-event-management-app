@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="page-header">
+      <h1><%=  @event[:name] %></h3>
+    </div>
+    <p><%= @event[:description] %></p>
+    <p><strong>location:</strong><%= @event[:location] %></p> 
+    <p><strong>created_at: </strong><%= format_date(@event[:created_at], "%d %h %Y %H:%m") %></p>
+    <p><strong>fees: </strong> <%= @event[:fees] %></p>
+  </div>
+
+  <table class="table">
+    <thead>
+      <th>Sr No</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Gender</th>
+      <th>attending</th>
+    </thead>
+    <tbody>
+      <% @event.users.each_with_index do |user, index|%>
+        <% attendants = @event.attendants.detect{|at| (at[:user_id].to_i== user[:id].to_i && at[:event_id].to_i == @event[:id].to_i) } %>
+        <td> <%= index + 1 %> </td>
+        <td> <%= user[:name] %> </td>
+        <td> <%= user[:email] %> </td>
+        <td> <%= user[:gender] %> </td>
+        <td>
+          <% if attendants.present? %>
+            <% if attendants[:attending] %>
+              attending
+            <% else %>
+              not attending
+            <% end %>
+          <% end %>
+        </td>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
