@@ -6,7 +6,7 @@ class EventController < ApplicationController
         @user_attendants = @event.attendants.detect{|at|  at.user_id == current_user.id && @event.id == at.event_id}
         @message = (@user_attendants.attending ? "You are attending this event" : "You are not attending this event") if @user_attendants.present?          
       end
-      @show_attendants_button = @user_attendants.blank? && (@event[:event_time].present? && @event[:event_time] > Time.zone.now)
+      @show_attendants_button = @user_attendants.blank? && (@event[:event_time].present? && @event[:event_time] > Time.zone.now) && user_signed_in?
     end
   end
 
