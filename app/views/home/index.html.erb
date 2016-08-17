@@ -1,1 +1,26 @@
-<p>This is index page</p>
+<% result = @result[:events] %>
+<% count = @result[:count] %>
+
+<div class="container-fluid">
+  <% result.each_slice(3) do |events| %>
+    <div class="row">
+      <% events.each do |e|%>
+        <div class="col-sm-6 col-md-4">
+          <div class="thumbnail">
+            <div class="caption">
+              <% if e[:fees].present?%>
+                <span class="label label-primary pull-right"><%= number_to_human(e[:fees], precision: 2, strip_insignificant_zeros: true) %> </span> 
+              <% end %>
+              <h3><a href="<%= e[:id] %>"><%= e[:name] %></a></h3>
+              <p> <%= e[:description] %> </p>
+              <div>
+                <span class="label label-info"><%= format_date(e[:created_at], "%d %h %Y %H:%m") %></span>
+                <span class="label label-info"><%= e[:location]%></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>     
+</div>

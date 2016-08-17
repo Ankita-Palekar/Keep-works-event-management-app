@@ -3,7 +3,9 @@ class HomeController < ApplicationController
   def index
     process_params
     @result = {}
-    @result[:events] = Event.filter(params)
+    events = Event.filter(params)
+    events = events.select(:name, :location, :description, :fees, :created_at, :event_time)
+    @result[:events] = events
     @result[:count] = Event.count
   end
 
